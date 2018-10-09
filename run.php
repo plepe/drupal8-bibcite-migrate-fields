@@ -13,19 +13,22 @@ $kernel->boot();
 require_once DRUPAL_DIR . '/core/includes/database.inc';
 require_once DRUPAL_DIR . '/core/includes/schema.inc';
 
-//$node = \Drupal\node\Entity\Node::load(836);
-$node = \Drupal::entityTypeManager()->getStorage('node')->load(836);
-//print_r($node);
+  $src = \Drupal::entityTypeManager()->getStorage('node')->load(836);
+  $dest = \Drupal::entityTypeManager()->getStorage('bibcite_reference')->load(473);
 
-$value = $node->get('field_ieg_ike_project')->getValue();
-print_r($value);
+  print_r($src);
+
+  $fields = array('field_teaserimage', 'field_ieg_ike_project', 'field_projects', 'field_videolink', 'field_suppl');
+
+  foreach ($fields as $field) {
+    $value = $src->get($field)->getValue();
+    print_r($value);
 
 
-//print_r(array_keys(\Drupal::entityTypeManager()->getDefinitions()));
-$entity = \Drupal::entityTypeManager()->getStorage('bibcite_reference')->load(473);
-//
-print_r($entity->get('field_funding_projects')->getValue());
-$entity->get('field_funding_projects')->setValue($value);
-print_r($entity->get('field_funding_projects')->getValue());
-//print_r($entity);
-$entity->save();
+  //  print_r($dest->get($field)->getValue());
+    $dest->get($field)->setValue($value);
+  //  print_r($dest->get($field)->getValue());
+    //print_r($entity);
+  }
+
+  $dest->save();
