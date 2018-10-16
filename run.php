@@ -15,11 +15,14 @@ require_once DRUPAL_DIR . '/core/includes/schema.inc';
 
 $fields = array('field_ieg_ike_project', 'field_projects', 'field_videolink', 'field_suppl', 'field_teaserimage', 'upload' => 'field_upload');
 
+$db = new PDO('mysql:dbname=drupal8', '', '');
+$res = $db->query('select old.nid node_id, new.id bibcite_id from biblio old join bibcite_reference new on old.biblio_citekey=new.bibcite_citekey');
+
 $nids = \Drupal::entityQuery('node')->condition('type', 'biblio')->execute();
 
-$bibid = 0;
-foreach ($nids as $nid) {
-  $bibid++;
+while ($elem = $res->fetch()) {
+  $nid = $elem['node_id'];
+  $bibid = $elem['bibcite_id'];
 
   print "Copy {$nid} to {$bibid}\n";
   $src = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
