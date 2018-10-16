@@ -25,6 +25,13 @@ foreach ($nids as $nid) {
   $src = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
   $dest = \Drupal::entityTypeManager()->getStorage('bibcite_reference')->load($bibid);
 
+  if ($src->get('title')->getValue() !== $dest->get('title')->getValue()) {
+    print "Titles do not match!\n";
+    print "SRC  "; print_r($src->get('title')->getValue());
+    print "DEST "; print_r($dest->get('title')->getValue());
+    exit(1);
+  }
+
   foreach ($fields as $field_old => $field_new) {
     if (is_numeric($field_old)) {
       $field_old = $field_new;
