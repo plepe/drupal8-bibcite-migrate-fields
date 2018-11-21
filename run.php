@@ -13,7 +13,7 @@ $kernel->boot();
 require_once DRUPAL_DIR . '/core/includes/database.inc';
 require_once DRUPAL_DIR . '/core/includes/schema.inc';
 
-$fields = array('field_ieg_ike_project', 'field_projects', 'field_videolink', 'field_suppl', 'field_teaserimage', 'upload' => 'field_upload');
+$fields = array('field_ieg_ike_project', 'field_projects', 'field_videolink', 'field_suppl', 'field_teaserimage', 'upload' => 'field_upload', 'uid', 'created', 'changed');
 $fields_strip_html = array('bibcite_abst_e', 'bibcite_abst_f', 'bibcite_notes', 'bibcite_custom1', 'bibcite_custom2', 'bibcite_custom3', 'bibcite_custom4', 'bibcite_custom5', 'bibcite_custom6', 'bibcite_custom7');
 
 $db = new PDO('mysql:dbname=drupal8', '', '');
